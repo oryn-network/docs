@@ -430,7 +430,7 @@ footer{border-top:1px solid var(--border);padding:26px 0;margin-top:60px;positio
   <div class="wrap">
     <div class="section-kicker reveal">Quick start</div>
     <h2 class="reveal" style="margin-bottom:5px">From zero to your first payment in minutes</h2>
-    <p class="reveal" style="color:var(--muted);font-size:.87rem;margin-bottom:22px">Start on Base Sepolia — free testnet USDC, no real money. Register the sender and recipient from their own wallets first, then send payments with a single SDK call.</p>
+    <p class="reveal" style="color:var(--muted);font-size:.87rem;margin-bottom:22px">Start on Base Sepolia — free testnet USDC, no real money. Use the live Oryn contract address below or deploy your own contract if you want separate treasury and owner settings. Then register the sender and recipient from their own wallets and send payments with a single SDK call.</p>
     <div class="code-panel reveal">
       <div class="code-tabs">
         <button class="code-tab active" data-tab="install"><span class="tab-dot" style="background:#febc2e"></span>install</button>
@@ -628,7 +628,7 @@ console.log(`Compute agent paid automatically. Tx: ${receipt.hash}`);</code></pr
     <div class="deploy-grid">
       <div class="card reveal">
         <p style="color:var(--muted);font-size:.87rem;line-height:1.8;margin-bottom:18px">Oryn runs on Base with USDC as the settlement asset. Base Sepolia is available for testing, and v1 beta is now live on Base mainnet for real agent payments with the current safety cap.</p>
-        <p style="color:var(--muted);font-size:.87rem;line-height:1.8">You can deploy <code>OrynPayment</code> yourself using the script in the repo, or start from the live contract addresses below.</p>
+        <p style="color:var(--muted);font-size:.87rem;line-height:1.8">Most developers should start with the live Oryn contract addresses below. If you want your own treasury, owner, or isolated deployment, you can deploy <code>OrynPayment</code> yourself using the script in the SDK repo.</p>
         <div class="network-row">
           <div class="net-item"><div class="net-left"><span class="net-dot live"></span><span>Base Mainnet</span></div><span class="net-id">Chain ID 8453</span></div>
           <div class="net-item"><div class="net-left"><span class="net-dot test"></span><span>Base Sepolia</span></div><span class="net-id">Chain ID 84532</span></div>
