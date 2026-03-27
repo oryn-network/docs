@@ -22,14 +22,6 @@ body{background:var(--black);color:var(--text);font-family:var(--mono);font-size
 a{color:inherit}
 code{font-family:var(--mono);background:var(--s3);padding:1px 5px;border-radius:4px;color:var(--amber)}
 .wrap{width:min(var(--max),calc(100% - 40px));margin:0 auto}
-nav{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--border);background:rgba(6,6,7,0.88);backdrop-filter:blur(20px)}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:13px 0;gap:20px}
-.brand{font-family:var(--display);font-weight:800;font-size:1.1rem;letter-spacing:.06em;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:10px}
-.brand-mark{width:26px;height:26px;background:var(--amber);border-radius:6px;display:flex;align-items:center;justify-content:center}
-.nav-links{display:flex;gap:22px;list-style:none;flex-wrap:wrap}
-.nav-links a{text-decoration:none;color:var(--muted);font-size:.81rem;letter-spacing:.04em}
-.nav-links a:hover,.nav-links a.active{color:var(--text)}
-.btn-nav{display:inline-flex;align-items:center;gap:7px;padding:8px 16px;border-radius:8px;background:var(--amber);color:#1c0e00;font-weight:500;font-size:.81rem;text-decoration:none;white-space:nowrap}
 .hero{padding:68px 0 24px}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:4px;border:1px solid var(--amber-border);background:var(--amber-bg);color:var(--amber2);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px}
 h1{font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,5vw,4rem);line-height:1;letter-spacing:-.04em;margin-bottom:18px}
@@ -82,49 +74,19 @@ footer{border-top:1px solid var(--border);padding:26px 0;margin-top:44px}
 }
 @media(max-width:520px){
   .wrap{width:min(var(--max),calc(100% - 24px))}
-  .nav-inner{align-items:flex-start;flex-direction:column}
   .hero{padding:38px 0 20px}
   h1{font-size:1.95rem;line-height:1.04}
-  .btn-nav{width:100%;justify-content:center}
   .intro-card,.checklist,.issue{padding:18px}
 }
 </style>
 </head>
 <body>
-<nav>
-  <div class="wrap nav-inner">
-    <a href="docs.html" class="brand">
-      <div class="brand-mark">
-        <svg viewBox="0 0 14 14" fill="none"><path d="M7 1L13 7L7 13L1 7L7 1Z" fill="#1c0e00"/></svg>
-      </div>
-      ORYN
-    </a>
-    <ul class="nav-links">
-      <li><a href="docs.html">Docs</a></li>
-      <li><a href="examples.html">Examples</a></li>
-      <li><a href="troubleshooting.html" class="active">Troubleshooting</a></li>
-      <li><a href="https://github.com/oryn-network/sdk" target="_blank" rel="noreferrer">SDK Repo</a></li>
-    </ul>
-    <a href="https://www.npmjs.com/package/@oryn/sdk" target="_blank" rel="noreferrer" class="btn-nav">View on npm ↗</a>
-  </div>
-</nav>
-
 <main>
   <section class="hero">
     <div class="wrap">
       <div class="eyebrow">Troubleshooting · First-run help</div>
       <h1>Fix the <span>common Oryn setup failures</span></h1>
-      <p class="hero-sub">Most first-run issues come down to the same few things: a wallet or agent is already registered, the payer has no USDC, the recipient has no gas, or the app is pointing at the wrong network or contract. This page is here so developers can recover quickly without guessing.</p>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <div class="intro-card">
-        <div class="section-kicker">Mental model</div>
-        <h2>What usually goes wrong</h2>
-        <p>Oryn is simple, but it is stateful. A wallet can only register one agent ID in v1, recipients must already exist before they can be paid, and real USDC balances matter because the settlement happens onchain. When something fails, think in this order: wallet state, agent state, funding, then network configuration.</p>
-      </div>
+      <p class="hero-sub">Use this page to fix the common first-run failures quickly.</p>
     </div>
   </section>
 
@@ -133,12 +95,11 @@ footer{border-top:1px solid var(--border);padding:26px 0;margin-top:44px}
       <aside class="sidebar">
         <h3>Docs menu</h3>
         <div class="sidebar-group">
-          <div class="sidebar-label">What to do</div>
+          <div class="sidebar-label">Pages</div>
           <div class="sidebar-links">
-            <a href="docs.html">1. Docs overview</a>
-            <a href="examples.html">2. Examples</a>
-            <a href="troubleshooting.html" class="active">3. Troubleshooting</a>
-            <a href="https://github.com/oryn-network/sdk#api" target="_blank" rel="noreferrer">4. SDK API</a>
+            <a href="examples.html">Examples</a>
+            <a href="troubleshooting.html" class="active">Troubleshooting</a>
+            <a href="https://github.com/oryn-network/sdk#api" target="_blank" rel="noreferrer">SDK API</a>
           </div>
         </div>
         <div class="sidebar-group">
@@ -149,10 +110,6 @@ footer{border-top:1px solid var(--border);padding:26px 0;margin-top:44px}
             <a href="#funding">Missing USDC or gas</a>
             <a href="#network">Wrong network or contract</a>
           </div>
-        </div>
-        <div class="sidebar-group">
-          <div class="sidebar-label">Tip</div>
-          <div class="sidebar-note">When in doubt, verify four things in order: wallet, agent ID, funding, then network config.</div>
         </div>
       </aside>
       <div class="grid">
@@ -305,7 +262,6 @@ footer{border-top:1px solid var(--border);padding:26px 0;margin-top:44px}
   <div class="wrap footer-inner">
     <div class="footer-brand">ORY<span>N</span></div>
     <div class="footer-links">
-      <a href="docs.html">Docs</a>
       <a href="examples.html">Examples</a>
       <a href="https://www.npmjs.com/package/@oryn/sdk" target="_blank" rel="noreferrer">npm Package</a>
       <a href="https://github.com/oryn-network/sdk" target="_blank" rel="noreferrer">SDK Repo</a>

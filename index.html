@@ -32,7 +32,7 @@ body{background:var(--black);color:var(--text);font-family:var(--mono);font-size
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;border-bottom:1px solid var(--border);background:rgba(6,6,7,0.82);backdrop-filter:blur(20px)}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:13px 0;gap:20px}
+.nav-inner{display:flex;align-items:center;justify-content:flex-start;padding:13px 0;gap:14px}
 .brand{font-family:var(--display);font-weight:800;font-size:1.1rem;letter-spacing:.06em;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:10px}
 .brand-mark{width:26px;height:26px;background:var(--amber);border-radius:6px;display:flex;align-items:center;justify-content:center}
 .brand-mark svg{width:14px;height:14px}
@@ -42,6 +42,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;border-bottom:1px solid var(
 .nav-links a:hover{color:var(--text)}
 .nav-links a:hover::after{transform:scaleX(1)}
 .nav-right{display:flex;align-items:center;gap:10px}
+.nav-right{margin-left:auto}
 .nav-badge{padding:4px 10px;border-radius:4px;border:1px solid var(--amber-border);background:var(--amber-bg);color:var(--amber);font-size:.71rem;letter-spacing:.1em;text-transform:uppercase}
 .btn-nav{display:inline-flex;align-items:center;gap:7px;padding:8px 16px;border-radius:8px;background:var(--amber);color:#1c0e00;font-family:var(--mono);font-weight:500;font-size:.81rem;text-decoration:none;transition:opacity .15s,transform .15s;white-space:nowrap}
 .btn-nav:hover{opacity:.85;transform:translateY(-1px)}
@@ -309,7 +310,7 @@ footer{border-top:1px solid var(--border);padding:26px 0;margin-top:60px;positio
       ORYN
     </a>
     <ul class="nav-links">
-      <li><a href="docs.html" target="_blank" rel="noreferrer">Docs</a></li>
+      <li><a href="examples.html" target="_blank" rel="noreferrer">Docs</a></li>
     </ul>
     <div class="nav-right">
       <span class="nav-badge">Beta</span>
@@ -668,7 +669,7 @@ console.log(`Compute agent paid automatically. Tx: ${receipt.hash}`);</code></pr
       <div class="footer-note">The payment layer for AI agents. Built on Base.</div>
     </div>
     <div class="footer-links">
-      <a href="docs.html" target="_blank" rel="noreferrer">Docs</a>
+      <a href="examples.html" target="_blank" rel="noreferrer">Docs</a>
       <a href="examples.html" target="_blank" rel="noreferrer">Examples</a>
       <a href="troubleshooting.html" target="_blank" rel="noreferrer">Troubleshooting</a>
       <a href="https://github.com/oryn-network/sdk" target="_blank" rel="noreferrer">SDK Repo</a>
