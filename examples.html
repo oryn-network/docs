@@ -51,7 +51,10 @@ h2{font-family:var(--display);font-weight:700;font-size:clamp(1.55rem,3.2vw,2.2r
 .toc h3{font-family:var(--display);font-size:1rem;margin-bottom:12px}
 .toc ul{list-style:none;display:flex;flex-direction:column;gap:8px}
 .toc a{text-decoration:none;color:var(--muted);font-size:.84rem}
-.toc a:hover{color:var(--text)}
+.toc a:hover,.toc a.active{color:var(--text)}
+.toc-section + .toc-section{margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
+.toc-label{font-size:.68rem;color:var(--muted2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.toc-note{font-size:.78rem;color:var(--muted);line-height:1.6}
 .content{display:flex;flex-direction:column;gap:16px}
 .card{padding:24px}
 .card p{color:var(--muted);font-size:.85rem}
@@ -148,14 +151,30 @@ footer{border-top:1px solid var(--border);padding:26px 0;margin-top:44px}
   <section>
     <div class="wrap grid">
       <aside class="toc">
-        <h3>On this page</h3>
-        <ul>
-          <li><a href="#before-you-start">Before you start</a></li>
-          <li><a href="#plain-node">Plain Node example</a></li>
-          <li><a href="#claude">Claude example</a></li>
-          <li><a href="#openai">OpenAI example</a></li>
-          <li><a href="#what-to-expect">Expected flow</a></li>
-        </ul>
+        <h3>Docs menu</h3>
+        <div class="toc-section">
+          <div class="toc-label">What to do</div>
+          <ul>
+            <li><a href="index.html#quickstart">1. Quick start</a></li>
+            <li><a href="examples.html" class="active">2. Examples</a></li>
+            <li><a href="troubleshooting.html">3. Troubleshooting</a></li>
+            <li><a href="index.html#api">4. API reference</a></li>
+          </ul>
+        </div>
+        <div class="toc-section">
+          <div class="toc-label">On this page</div>
+          <ul>
+            <li><a href="#before-you-start">Before you start</a></li>
+            <li><a href="#plain-node">Plain Node example</a></li>
+            <li><a href="#claude">Claude example</a></li>
+            <li><a href="#openai">OpenAI example</a></li>
+            <li><a href="#what-to-expect">Expected flow</a></li>
+          </ul>
+        </div>
+        <div class="toc-section">
+          <div class="toc-label">Tip</div>
+          <div class="toc-note">Start with the plain Node example first. It is the fastest way to understand Oryn without an AI SDK in the middle.</div>
+        </div>
       </aside>
 
       <div class="content">
