@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Oryn Examples — AI Agent Payment SDK</title>
+<meta name="description" content="Copy-paste examples for using Oryn with Claude, OpenAI, and plain Node.js agent workflows on Base."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<style>
+:root{
+  --black:#060607;--s1:#0c0c0e;--s2:#111114;--s3:#161619;--s4:#1c1c20;
+  --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.11);
+  --text:#eeede6;--muted:#787670;--muted2:#4e4d4b;
+  --amber:#e9a425;--amber2:#f0bc55;--amber-bg:rgba(233,164,37,0.08);--amber-border:rgba(233,164,37,0.22);
+  --green:#3dbf7a;--blue:#5090f8;
+  --max:1100px;--mono:"DM Mono",monospace;--display:"Syne",sans-serif;--radius:12px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--text);font-family:var(--mono);font-size:14px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+code,pre{font-family:var(--mono)}
+.wrap{width:min(var(--max),calc(100% - 40px));margin:0 auto}
+nav{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--border);background:rgba(6,6,7,0.88);backdrop-filter:blur(20px)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:13px 0;gap:20px}
+.brand{font-family:var(--display);font-weight:800;font-size:1.1rem;letter-spacing:.06em;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand-mark{width:26px;height:26px;background:var(--amber);border-radius:6px;display:flex;align-items:center;justify-content:center}
+.nav-links{display:flex;gap:22px;list-style:none;flex-wrap:wrap}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:.81rem;letter-spacing:.04em}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.btn-nav{display:inline-flex;align-items:center;gap:7px;padding:8px 16px;border-radius:8px;background:var(--amber);color:#1c0e00;font-weight:500;font-size:.81rem;text-decoration:none;white-space:nowrap}
+.hero{padding:68px 0 28px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:4px;border:1px solid var(--amber-border);background:var(--amber-bg);color:var(--amber2);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,5vw,4.4rem);line-height:1;letter-spacing:-.04em;margin-bottom:18px}
+h1 span{color:var(--amber)}
+.hero-sub{max-width:60ch;color:var(--muted);font-size:.95rem}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:8px;border:1px solid var(--border2);background:transparent;color:var(--muted);font-size:.87rem;text-decoration:none}
+.btn-ghost:hover{border-color:var(--amber-border);color:var(--text)}
+section{padding:18px 0}
+.section-kicker{font-size:.71rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:11px;display:flex;align-items:center;gap:8px}
+.section-kicker::before{content:'';width:18px;height:1px;background:var(--amber)}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(1.55rem,3.2vw,2.2rem);letter-spacing:-.03em;line-height:1.1;margin-bottom:14px}
+.lede{color:var(--muted);max-width:70ch;font-size:.87rem}
+.grid{display:grid;grid-template-columns:280px 1fr;gap:16px;align-items:start}
+.toc,.card,.example{background:var(--s1);border:1px solid var(--border);border-radius:14px}
+.toc{padding:18px;position:sticky;top:82px}
+.toc h3{font-family:var(--display);font-size:1rem;margin-bottom:12px}
+.toc ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.toc a{text-decoration:none;color:var(--muted);font-size:.84rem}
+.toc a:hover{color:var(--text)}
+.content{display:flex;flex-direction:column;gap:16px}
+.card{padding:24px}
+.card p{color:var(--muted);font-size:.85rem}
+.card p + p{margin-top:12px}
+.bullet-list{margin-top:16px;display:grid;gap:8px}
+.bullet-list div{padding-left:16px;position:relative;color:var(--muted);font-size:.84rem}
+.bullet-list div::before{content:'•';position:absolute;left:0;color:var(--amber)}
+.example{overflow:hidden}
+.example-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--border);background:var(--s2)}
+.example-title{font-family:var(--display);font-size:1rem}
+.example-meta{font-size:.74rem;color:var(--muted2);letter-spacing:.04em;text-transform:uppercase}
+.example-body{padding:18px}
+.tags{display:flex;gap:8px;flex-wrap:wrap}
+.tag{padding:4px 8px;border-radius:999px;background:var(--amber-bg);border:1px solid var(--amber-border);color:var(--amber2);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase}
+.mini-note{margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--s2);border:1px solid var(--border);color:var(--muted);font-size:.8rem}
+.mini-note strong{color:var(--text)}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.detail-card{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:14px}
+.detail-card h4{font-family:var(--display);font-size:.94rem;margin-bottom:10px}
+.detail-card ul{list-style:none;display:grid;gap:8px}
+.detail-card li{font-size:.8rem;color:var(--muted);padding-left:14px;position:relative}
+.detail-card li::before{content:'•';position:absolute;left:0;color:var(--amber)}
+.detail-card code{background:var(--s3);padding:1px 5px;border-radius:4px;color:var(--amber);font-size:.95em}
+.expect-box{margin-top:14px;padding:14px;border-radius:12px;background:rgba(61,191,122,0.06);border:1px solid rgba(61,191,122,0.18)}
+.expect-box h4{font-family:var(--display);font-size:.94rem;margin-bottom:8px;color:var(--text)}
+.expect-box p{color:var(--muted);font-size:.8rem}
+.expect-box p + p{margin-top:6px}
+pre[class*="language-"]{margin:14px 0 0;padding:18px;border-radius:12px;background:#09090b!important;border:1px solid var(--border)!important;overflow:auto}
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.flow-card{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:16px}
+.flow-card strong{display:block;margin-bottom:6px;color:var(--text)}
+.flow-card p{color:var(--muted);font-size:.8rem}
+footer{border-top:1px solid var(--border);padding:26px 0;margin-top:44px}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.footer-brand{font-family:var(--display);font-weight:800;font-size:.92rem;color:var(--muted2);letter-spacing:.06em}
+.footer-brand span{color:var(--amber)}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap}
+.footer-links a{font-size:.76rem;color:var(--muted2);text-decoration:none}
+.footer-links a:hover{color:var(--muted)}
+@media(max-width:900px){
+  .grid{grid-template-columns:1fr}
+  .toc{position:static}
+  .flow{grid-template-columns:1fr}
+  .detail-grid{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+  .wrap{width:min(var(--max),calc(100% - 24px))}
+  .nav-inner{align-items:flex-start;flex-direction:column}
+  .hero{padding:38px 0 20px}
+  h1{font-size:1.95rem;line-height:1.04}
+  .hero-actions{flex-direction:column}
+  .btn-nav,.btn-ghost{width:100%;justify-content:center}
+  .card,.toc,.example-body{padding:18px}
+  .example-head{padding:14px;align-items:flex-start;flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <a href="index.html" class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M7 1L13 7L7 13L1 7L7 1Z" fill="#1c0e00"/></svg>
+      </div>
+      ORYN
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#quickstart">Quick start</a></li>
+      <li><a href="#claude" class="active">Examples</a></li>
+      <li><a href="index.html#api">API</a></li>
+      <li><a href="https://github.com/oryn-network/sdk" target="_blank" rel="noreferrer">SDK Repo</a></li>
+    </ul>
+    <a href="https://www.npmjs.com/package/@oryn/sdk" target="_blank" rel="noreferrer" class="btn-nav">View on npm ↗</a>
+  </div>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Examples · Start with a real flow</div>
+      <h1>See how <span>agents actually use Oryn</span></h1>
+      <p class="hero-sub">These examples are designed to answer the first question a new developer has: "How do I wire this into a real agent workflow?" Start with plain Node if you want the cleanest mental model, then move to Claude or OpenAI once the payment flow clicks.</p>
+      <div class="hero-actions">
+        <a href="#plain-node" class="btn-nav">Start with Node →</a>
+        <a href="index.html#quickstart" class="btn-ghost">Back to quick start</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap grid">
+      <aside class="toc">
+        <h3>On this page</h3>
+        <ul>
+          <li><a href="#before-you-start">Before you start</a></li>
+          <li><a href="#plain-node">Plain Node example</a></li>
+          <li><a href="#claude">Claude example</a></li>
+          <li><a href="#openai">OpenAI example</a></li>
+          <li><a href="#what-to-expect">Expected flow</a></li>
+        </ul>
+      </aside>
+
+      <div class="content">
+        <div class="card" id="before-you-start">
+          <div class="section-kicker">Start here</div>
+          <h2>What you need before any example will work</h2>
+          <p>Oryn is not just a client library. It sits on top of a live <code>OrynPayment</code> contract on Base and uses real wallets to register agent identities and settle USDC. That means every example has the same setup model underneath it.</p>
+          <div class="bullet-list">
+            <div>A Base RPC URL, usually Base Sepolia while you are testing.</div>
+            <div>A payer wallet with ETH for gas and USDC for the payment.</div>
+            <div>A second wallet for the recipient agent, with a little ETH for registration gas.</div>
+            <div>An <code>OrynPayment</code> contract address. Most developers should use the live Oryn deployment rather than deploy their own.</div>
+            <div>Two registered agent IDs if you want to send a payment immediately.</div>
+          </div>
+          <div class="mini-note"><strong>v1 rule:</strong> one wallet can register one permanent agent ID. If a wallet is already registered, reuse that agent ID instead of trying to register a new one.</div>
+        </div>
+
+        <article class="example" id="plain-node">
+          <div class="example-head">
+            <div>
+              <div class="example-title">1. Plain Node.js</div>
+              <div class="example-meta">Best first example · simplest mental model</div>
+            </div>
+            <div class="tags">
+              <span class="tag">Node</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">Two wallets</span>
+            </div>
+          </div>
+          <div class="example-body">
+            <p class="lede">Use this first if you want to understand Oryn itself without any AI SDK in the way. One wallet acts as the sender agent, another as the recipient agent, and the payer sends USDC after both identities exist onchain.</p>
+<pre class="language-typescript"><code class="language-typescript">import { OrynSDK } from "@oryn/sdk";
+
+const payer = new OrynSDK({
+  contractAddress: process.env.ORYN_PAYMENT_CONTRACT_ADDRESS!,
+  usdcAddress: "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+  chainId: 84532
+});
+
+const recipient = new OrynSDK({
+  contractAddress: process.env.ORYN_PAYMENT_CONTRACT_ADDRESS!,
+  usdcAddress: "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+  chainId: 84532
+});
+
+await payer.connect(process.env.PRIVATE_KEY!, process.env.BASE_SEPOLIA_RPC_URL!);
+await recipient.connect(process.env.RECIPIENT_PRIVATE_KEY!, process.env.BASE_SEPOLIA_RPC_URL!);
+
+await payer.registerAgent("planner-agent-001");
+await recipient.registerAgent("compute-agent-001");
+
+const fee = await payer.estimateFee(0.5);
+console.log("Estimated fee:", fee, "USDC");
+
+const receipt = await payer.pay("planner-agent-001", "compute-agent-001", 0.5);
+console.log("Payment confirmed:", receipt.hash);</code></pre>
+            <div class="detail-grid">
+              <div class="detail-card">
+                <h4>Required env vars</h4>
+                <ul>
+                  <li><code>BASE_SEPOLIA_RPC_URL</code> for Base Sepolia access</li>
+                  <li><code>PRIVATE_KEY</code> for the payer wallet</li>
+                  <li><code>RECIPIENT_PRIVATE_KEY</code> for the recipient wallet</li>
+                  <li><code>ORYN_PAYMENT_CONTRACT_ADDRESS</code> for the live Oryn contract</li>
+                </ul>
+              </div>
+              <div class="detail-card">
+                <h4>Wallet requirements</h4>
+                <ul>
+                  <li>Payer wallet needs Base Sepolia ETH for gas</li>
+                  <li>Payer wallet needs Base Sepolia USDC for the transfer</li>
+                  <li>Recipient wallet needs a little ETH for registration gas</li>
+                  <li>Use two separate wallets for a real first-run test</li>
+                </ul>
+              </div>
+            </div>
+            <div class="expect-box">
+              <h4>Expected output</h4>
+              <p>You should see both wallets connect, the agent IDs register or get detected as already registered, a fee estimate print, and then a transaction hash from <code>pay()</code>.</p>
+              <p>After the payment confirms, the recipient balance should increase and the payer balance should decrease by the sent amount plus any fee not routed back to the same treasury wallet.</p>
+            </div>
+            <div class="mini-note"><strong>Use this when:</strong> you are building a backend workflow, queue worker, or orchestration service and you want the cleanest path to your first successful payment.</div>
+          </div>
+        </article>
+
+        <article class="example" id="claude">
+          <div class="example-head">
+            <div>
+              <div class="example-title">2. Claude agent pays a compute agent</div>
+              <div class="example-meta">Anthropic integration · task-driven payment</div>
+            </div>
+            <div class="tags">
+              <span class="tag">Claude</span>
+              <span class="tag">Anthropic SDK</span>
+              <span class="tag">Stablecoin settlement</span>
+            </div>
+          </div>
+          <div class="example-body">
+            <p class="lede">This is the most natural "agent pays another agent" story for Oryn. A Claude-powered agent receives a task, decides it needs outside help, and pays a registered compute agent automatically.</p>
+<pre class="language-typescript"><code class="language-typescript">import Anthropic from "@anthropic-ai/sdk";
+import { OrynSDK } from "@oryn/sdk";
+
+const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY! });
+const oryn = new OrynSDK({
+  contractAddress: process.env.ORYN_PAYMENT_CONTRACT_ADDRESS!,
+  usdcAddress: "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+  chainId: 84532
+});
+
+await oryn.connect(process.env.PRIVATE_KEY!, process.env.BASE_SEPOLIA_RPC_URL!);
+
+const response = await anthropic.messages.create({
+  model: "claude-3-5-haiku-latest",
+  max_tokens: 300,
+  messages: [
+    { role: "user", content: "Summarise this task and decide whether to delegate compute." }
+  ]
+});
+
+console.log(response.content[0].text);
+
+const receipt = await oryn.pay(
+  "claude-agent-001",
+  "compute-agent-001",
+  0.5
+);
+
+console.log("Compute agent paid:", receipt.hash);</code></pre>
+            <div class="detail-grid">
+              <div class="detail-card">
+                <h4>Required env vars</h4>
+                <ul>
+                  <li><code>ANTHROPIC_API_KEY</code> for Claude</li>
+                  <li><code>PRIVATE_KEY</code> for the paying agent wallet</li>
+                  <li><code>BASE_SEPOLIA_RPC_URL</code> for the network connection</li>
+                  <li><code>ORYN_PAYMENT_CONTRACT_ADDRESS</code> for settlement</li>
+                </ul>
+              </div>
+              <div class="detail-card">
+                <h4>What this example assumes</h4>
+                <ul>
+                  <li><code>claude-agent-001</code> is already registered to the connected wallet</li>
+                  <li><code>compute-agent-001</code> is already registered by its own wallet</li>
+                  <li>The payer wallet holds enough USDC to fund the task</li>
+                  <li>Your app logic decides when the payment should happen</li>
+                </ul>
+              </div>
+            </div>
+            <div class="expect-box">
+              <h4>Expected output</h4>
+              <p>You should see Claude return text first, then an onchain payment transaction hash after <code>oryn.pay()</code> runs.</p>
+              <p>If the payment fails, the most common causes are an unregistered recipient agent, missing USDC, or using the wrong network or contract address.</p>
+            </div>
+            <div class="mini-note"><strong>Important:</strong> the receiving wallet must already have registered <code>compute-agent-001</code>. Oryn does not create the counterparty identity for you at payment time.</div>
+          </div>
+        </article>
+
+        <article class="example" id="openai">
+          <div class="example-head">
+            <div>
+              <div class="example-title">3. OpenAI agent pays for a tool step</div>
+              <div class="example-meta">OpenAI integration · tool-or-service payment</div>
+            </div>
+            <div class="tags">
+              <span class="tag">OpenAI</span>
+              <span class="tag">Task workflows</span>
+              <span class="tag">Base</span>
+            </div>
+          </div>
+          <div class="example-body">
+            <p class="lede">If your app uses OpenAI for orchestration, the payment flow is the same. The agent completes part of the job with the model, then pays another registered service agent when it needs a premium step outside its own stack.</p>
+<pre class="language-typescript"><code class="language-typescript">import OpenAI from "openai";
+import { OrynSDK } from "@oryn/sdk";
+
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
+const oryn = new OrynSDK({
+  contractAddress: process.env.ORYN_PAYMENT_CONTRACT_ADDRESS!,
+  usdcAddress: "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+  chainId: 84532
+});
+
+await oryn.connect(process.env.PRIVATE_KEY!, process.env.BASE_SEPOLIA_RPC_URL!);
+
+const result = await openai.responses.create({
+  model: "gpt-4.1-mini",
+  input: "Plan how to enrich this task with premium search."
+});
+
+console.log(result.output_text);
+
+const receipt = await oryn.pay(
+  "planner-agent-001",
+  "search-agent-001",
+  0.1
+);
+
+console.log("Search agent paid:", receipt.hash);</code></pre>
+            <div class="detail-grid">
+              <div class="detail-card">
+                <h4>Required env vars</h4>
+                <ul>
+                  <li><code>OPENAI_API_KEY</code> for the model call</li>
+                  <li><code>PRIVATE_KEY</code> for the paying wallet</li>
+                  <li><code>BASE_SEPOLIA_RPC_URL</code> for Base Sepolia</li>
+                  <li><code>ORYN_PAYMENT_CONTRACT_ADDRESS</code> for the Oryn contract</li>
+                </ul>
+              </div>
+              <div class="detail-card">
+                <h4>Best fit</h4>
+                <ul>
+                  <li>Paying search, retrieval, or verification agents</li>
+                  <li>Charging for premium tool steps inside a larger workflow</li>
+                  <li>OpenAI-powered planners that outsource a subtask</li>
+                  <li>Backends where payment should happen after a model decision</li>
+                </ul>
+              </div>
+            </div>
+            <div class="expect-box">
+              <h4>Expected output</h4>
+              <p>You should see the OpenAI response first, followed by a transaction hash once the service agent has been paid onchain.</p>
+              <p>In a production workflow, this is the point where you would continue the job only after the payment step succeeds and the downstream service can trust settlement.</p>
+            </div>
+            <div class="mini-note"><strong>Use this when:</strong> the model itself is not the thing being paid for. Oryn is best when your agent needs to pay another agent, tool, API, or infrastructure provider inside the workflow.</div>
+          </div>
+        </article>
+
+        <div class="card" id="what-to-expect">
+          <div class="section-kicker">Expected flow</div>
+          <h2>What a healthy Oryn integration looks like</h2>
+          <div class="flow">
+            <div class="flow-card">
+              <strong>1. Setup</strong>
+              <p>Pick Base Sepolia first, add the live Oryn contract address, and fund the payer with ETH and USDC.</p>
+            </div>
+            <div class="flow-card">
+              <strong>2. Identity</strong>
+              <p>Register each wallet once with a stable agent ID that your workflow can reference later.</p>
+            </div>
+            <div class="flow-card">
+              <strong>3. Payment</strong>
+              <p>Call <code>pay()</code> only when the workflow has reached a point where another agent or service should be compensated.</p>
+            </div>
+          </div>
+          <div class="mini-note"><strong>Common confusion to avoid:</strong> Oryn is not the model provider. Claude or OpenAI powers the reasoning. Oryn handles identity, payment, and settlement once the workflow decides money should move.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="footer-brand">ORY<span>N</span></div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#quickstart">Quick start</a>
+      <a href="https://www.npmjs.com/package/@oryn/sdk" target="_blank" rel="noreferrer">npm Package</a>
+      <a href="https://github.com/oryn-network/sdk" target="_blank" rel="noreferrer">SDK Repo</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</body>
+</html>

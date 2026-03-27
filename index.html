@@ -312,6 +312,7 @@ footer{border-top:1px solid var(--border);padding:26px 0;margin-top:60px;positio
       <li><a href="#overview">Overview</a></li>
       <li><a href="#quickstart">Quick start</a></li>
       <li><a href="#use-cases">Use cases</a></li>
+      <li><a href="examples.html">Examples</a></li>
       <li><a href="#api">API</a></li>
       <li><a href="#deploy">Deploy</a></li>
     </ul>
@@ -430,7 +431,7 @@ footer{border-top:1px solid var(--border);padding:26px 0;margin-top:60px;positio
   <div class="wrap">
     <div class="section-kicker reveal">Quick start</div>
     <h2 class="reveal" style="margin-bottom:5px">From zero to your first payment in minutes</h2>
-    <p class="reveal" style="color:var(--muted);font-size:.87rem;margin-bottom:22px">Start on Base Sepolia — free testnet USDC, no real money. Use the live Oryn contract address below or deploy your own contract if you want separate treasury and owner settings. Then register the sender and recipient from their own wallets and send payments with a single SDK call.</p>
+    <p class="reveal" style="color:var(--muted);font-size:.87rem;margin-bottom:22px">Start on Base Sepolia — free testnet USDC, no real money. Use the live Oryn contract address below or deploy your own contract if you want separate treasury and owner settings. Then register the sender and recipient from their own wallets and send payments with a single SDK call. If you want full Claude, OpenAI, and plain Node walkthroughs, open the <a href="examples.html" style="color:var(--amber)">examples page</a>.</p>
     <div class="code-panel reveal">
       <div class="code-tabs">
         <button class="code-tab active" data-tab="install"><span class="tab-dot" style="background:#febc2e"></span>install</button>
@@ -672,6 +673,7 @@ console.log(`Compute agent paid automatically. Tx: ${receipt.hash}`);</code></pr
       <div class="footer-note">The payment layer for AI agents. Built on Base.</div>
     </div>
     <div class="footer-links">
+      <a href="examples.html">Examples</a>
       <a href="https://github.com/oryn-network/sdk" target="_blank" rel="noreferrer">SDK Repo</a>
       <a href="https://www.npmjs.com/package/@oryn/sdk" target="_blank" rel="noreferrer">npm Package</a>
       <a href="https://github.com/oryn-network/docs" target="_blank" rel="noreferrer">Docs Source</a>
@@ -805,11 +807,14 @@ const obs=new IntersectionObserver(e=>{e.forEach(e=>{if(e.isIntersecting){e.targ
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
 // EMAIL
-document.getElementById('email-form').addEventListener('submit',e=>{
-  e.preventDefault();
-  const n=document.getElementById('email-note');n.textContent="You're on the list.";n.style.color='var(--green)';
-  document.getElementById('email-input').value='';
-});
+const emailForm=document.getElementById('email-form');
+if(emailForm){
+  emailForm.addEventListener('submit',e=>{
+    e.preventDefault();
+    const n=document.getElementById('email-note');n.textContent="You're on the list.";n.style.color='var(--green)';
+    document.getElementById('email-input').value='';
+  });
+}
 </script>
 </body>
 </html>
