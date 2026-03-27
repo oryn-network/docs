@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Oryn Troubleshooting — Common SDK Errors</title>
+<meta name="description" content="Fix common Oryn SDK setup and payment issues: duplicate registration, missing USDC, wrong network, and unregistered agents."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --black:#060607;--s1:#0c0c0e;--s2:#111114;--s3:#161619;
+  --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.11);
+  --text:#eeede6;--muted:#787670;--muted2:#4e4d4b;
+  --amber:#e9a425;--amber2:#f0bc55;--amber-bg:rgba(233,164,37,0.08);--amber-border:rgba(233,164,37,0.22);
+  --green:#3dbf7a;--red:#e05555;
+  --max:1080px;--mono:"DM Mono",monospace;--display:"Syne",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--black);color:var(--text);font-family:var(--mono);font-size:14px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+code{font-family:var(--mono);background:var(--s3);padding:1px 5px;border-radius:4px;color:var(--amber)}
+.wrap{width:min(var(--max),calc(100% - 40px));margin:0 auto}
+nav{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--border);background:rgba(6,6,7,0.88);backdrop-filter:blur(20px)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:13px 0;gap:20px}
+.brand{font-family:var(--display);font-weight:800;font-size:1.1rem;letter-spacing:.06em;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand-mark{width:26px;height:26px;background:var(--amber);border-radius:6px;display:flex;align-items:center;justify-content:center}
+.nav-links{display:flex;gap:22px;list-style:none;flex-wrap:wrap}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:.81rem;letter-spacing:.04em}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.btn-nav{display:inline-flex;align-items:center;gap:7px;padding:8px 16px;border-radius:8px;background:var(--amber);color:#1c0e00;font-weight:500;font-size:.81rem;text-decoration:none;white-space:nowrap}
+.hero{padding:68px 0 24px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:4px;border:1px solid var(--amber-border);background:var(--amber-bg);color:var(--amber2);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,5vw,4rem);line-height:1;letter-spacing:-.04em;margin-bottom:18px}
+.hero-sub{max-width:62ch;color:var(--muted);font-size:.95rem}
+section{padding:18px 0}
+.section-kicker{font-size:.71rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:11px;display:flex;align-items:center;gap:8px}
+.section-kicker::before{content:'';width:18px;height:1px;background:var(--amber)}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(1.5rem,3vw,2.1rem);letter-spacing:-.03em;line-height:1.1;margin-bottom:14px}
+.intro-card,.issue,.checklist{background:var(--s1);border:1px solid var(--border);border-radius:14px}
+.intro-card,.checklist{padding:24px}
+.intro-card p,.checklist p{color:var(--muted);font-size:.85rem}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.issue{padding:22px}
+.issue-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.issue-dot{width:10px;height:10px;border-radius:50%}
+.issue-dot.red{background:var(--red)}
+.issue-dot.amber{background:var(--amber)}
+.issue-dot.green{background:var(--green)}
+.issue h3{font-family:var(--display);font-size:1rem}
+.label{font-size:.68rem;color:var(--muted2);letter-spacing:.08em;text-transform:uppercase}
+.block{margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--s2);border:1px solid var(--border)}
+.block strong{display:block;margin-bottom:6px;color:var(--text)}
+.block p{color:var(--muted);font-size:.8rem}
+.block p + p{margin-top:6px}
+.check-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.check-card{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:14px}
+.check-card h3{font-family:var(--display);font-size:.95rem;margin-bottom:10px}
+.check-card ul{list-style:none;display:grid;gap:8px}
+.check-card li{position:relative;padding-left:14px;color:var(--muted);font-size:.8rem}
+.check-card li::before{content:'•';position:absolute;left:0;color:var(--amber)}
+footer{border-top:1px solid var(--border);padding:26px 0;margin-top:44px}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.footer-brand{font-family:var(--display);font-weight:800;font-size:.92rem;color:var(--muted2);letter-spacing:.06em}
+.footer-brand span{color:var(--amber)}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap}
+.footer-links a{font-size:.76rem;color:var(--muted2);text-decoration:none}
+.footer-links a:hover{color:var(--muted)}
+@media(max-width:900px){
+  .grid,.check-grid{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+  .wrap{width:min(var(--max),calc(100% - 24px))}
+  .nav-inner{align-items:flex-start;flex-direction:column}
+  .hero{padding:38px 0 20px}
+  h1{font-size:1.95rem;line-height:1.04}
+  .btn-nav{width:100%;justify-content:center}
+  .intro-card,.checklist,.issue{padding:18px}
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="wrap nav-inner">
+    <a href="index.html" class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M7 1L13 7L7 13L1 7L7 1Z" fill="#1c0e00"/></svg>
+      </div>
+      ORYN
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#quickstart">Quick start</a></li>
+      <li><a href="examples.html">Examples</a></li>
+      <li><a href="troubleshooting.html" class="active">Troubleshooting</a></li>
+      <li><a href="https://github.com/oryn-network/sdk" target="_blank" rel="noreferrer">SDK Repo</a></li>
+    </ul>
+    <a href="https://www.npmjs.com/package/@oryn/sdk" target="_blank" rel="noreferrer" class="btn-nav">View on npm ↗</a>
+  </div>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Troubleshooting · First-run help</div>
+      <h1>Fix the <span>common Oryn setup failures</span></h1>
+      <p class="hero-sub">Most first-run issues come down to the same few things: a wallet or agent is already registered, the payer has no USDC, the recipient has no gas, or the app is pointing at the wrong network or contract. This page is here so developers can recover quickly without guessing.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="intro-card">
+        <div class="section-kicker">Mental model</div>
+        <h2>What usually goes wrong</h2>
+        <p>Oryn is simple, but it is stateful. A wallet can only register one agent ID in v1, recipients must already exist before they can be paid, and real USDC balances matter because the settlement happens onchain. When something fails, think in this order: wallet state, agent state, funding, then network configuration.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap grid">
+      <article class="issue">
+        <div class="issue-head">
+          <span class="issue-dot amber"></span>
+          <div>
+            <div class="label">Registration</div>
+            <h3>`AgentIdAlreadyRegistered`</h3>
+          </div>
+        </div>
+        <div class="block">
+          <strong>What it means</strong>
+          <p>The agent ID you are trying to claim is already taken on the current contract.</p>
+        </div>
+        <div class="block">
+          <strong>How to fix it</strong>
+          <p>Use a new agent ID, or look up the existing wallet and decide whether you should reuse that identity instead.</p>
+          <p>On Sepolia, it is normal to hit this if you rerun examples with the same hardcoded IDs.</p>
+        </div>
+      </article>
+
+      <article class="issue">
+        <div class="issue-head">
+          <span class="issue-dot amber"></span>
+          <div>
+            <div class="label">Registration</div>
+            <h3>`WalletAlreadyRegistered`</h3>
+          </div>
+        </div>
+        <div class="block">
+          <strong>What it means</strong>
+          <p>The connected wallet has already registered an agent ID on this contract.</p>
+        </div>
+        <div class="block">
+          <strong>How to fix it</strong>
+          <p>Reuse the existing agent ID for that wallet. In v1, one wallet can register one permanent agent identity.</p>
+          <p>Do not keep calling <code>registerAgent()</code> with new names on the same wallet.</p>
+        </div>
+      </article>
+
+      <article class="issue">
+        <div class="issue-head">
+          <span class="issue-dot red"></span>
+          <div>
+            <div class="label">Funding</div>
+            <h3>`ERC20: transfer amount exceeds balance`</h3>
+          </div>
+        </div>
+        <div class="block">
+          <strong>What it means</strong>
+          <p>The payer wallet does not hold enough USDC for the transfer amount.</p>
+        </div>
+        <div class="block">
+          <strong>How to fix it</strong>
+          <p>Fund the payer wallet with Base USDC on the same network you are testing against, then rerun the payment.</p>
+          <p>If your script prints a sender balance of <code>0 USDC</code>, this is almost always the issue.</p>
+        </div>
+      </article>
+
+      <article class="issue">
+        <div class="issue-head">
+          <span class="issue-dot red"></span>
+          <div>
+            <div class="label">Gas</div>
+            <h3>`insufficient funds for gas`</h3>
+          </div>
+        </div>
+        <div class="block">
+          <strong>What it means</strong>
+          <p>The wallet trying to register or pay does not have enough ETH on Base or Base Sepolia to cover gas.</p>
+        </div>
+        <div class="block">
+          <strong>How to fix it</strong>
+          <p>Fund the wallet with a little ETH on the correct network. On Sepolia, both the payer and recipient need gas because both may send transactions.</p>
+        </div>
+      </article>
+
+      <article class="issue">
+        <div class="issue-head">
+          <span class="issue-dot amber"></span>
+          <div>
+            <div class="label">Agent state</div>
+            <h3>Recipient is not registered</h3>
+          </div>
+        </div>
+        <div class="block">
+          <strong>What it means</strong>
+          <p>You are trying to pay an agent ID that does not exist on the current contract.</p>
+        </div>
+        <div class="block">
+          <strong>How to fix it</strong>
+          <p>Register the receiving wallet first, then use that exact agent ID in <code>pay(from, to, amount)</code>.</p>
+          <p>Oryn does not auto-create the recipient identity during payment.</p>
+        </div>
+      </article>
+
+      <article class="issue">
+        <div class="issue-head">
+          <span class="issue-dot green"></span>
+          <div>
+            <div class="label">Config</div>
+            <h3>Wrong network or contract address</h3>
+          </div>
+        </div>
+        <div class="block">
+          <strong>What it means</strong>
+          <p>Your wallet, RPC URL, USDC address, or <code>ORYN_PAYMENT_CONTRACT_ADDRESS</code> do not belong to the same network.</p>
+        </div>
+        <div class="block">
+          <strong>How to fix it</strong>
+          <p>Double-check chain ID, RPC URL, USDC address, and OrynPayment contract address together. Sepolia values and mainnet values are not interchangeable.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="checklist">
+        <div class="section-kicker">Quick checklist</div>
+        <h2>Check these before you debug deeper</h2>
+        <div class="check-grid">
+          <div class="check-card">
+            <h3>Wallets and agents</h3>
+            <ul>
+              <li>Is the payer wallet connected to the network you expect?</li>
+              <li>Does the payer already have an agent ID you should reuse?</li>
+              <li>Is the recipient registered on this exact contract?</li>
+              <li>Are you accidentally trying to reuse a hardcoded example ID?</li>
+            </ul>
+          </div>
+          <div class="check-card">
+            <h3>Funding and config</h3>
+            <ul>
+              <li>Does the payer have enough USDC for the payment?</li>
+              <li>Do both wallets have enough ETH for gas?</li>
+              <li>Is <code>ORYN_PAYMENT_CONTRACT_ADDRESS</code> correct for the network?</li>
+              <li>Are you using Base Sepolia values when you think you are testing?</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="footer-brand">ORY<span>N</span></div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="examples.html">Examples</a>
+      <a href="index.html#quickstart">Quick start</a>
+      <a href="https://www.npmjs.com/package/@oryn/sdk" target="_blank" rel="noreferrer">npm Package</a>
+      <a href="https://github.com/oryn-network/sdk" target="_blank" rel="noreferrer">SDK Repo</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
