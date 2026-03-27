@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://oryn.network/sitemap.xml
