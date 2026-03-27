@@ -119,16 +119,15 @@ footer{border-top:1px solid var(--border);padding:26px 0;margin-top:44px}
       <div class="content">
         <div class="card" id="before-you-start">
           <div class="section-kicker">Start here</div>
-          <h2>What you need before any example will work</h2>
-          <p>Oryn is not just a client library. It sits on top of a live <code>OrynPayment</code> contract on Base and uses real wallets to register agent identities and settle USDC. That means every example has the same setup model underneath it.</p>
+          <h2>New here? Start with Plain Node.</h2>
+          <p>Use the first example below if you want the fastest path to a real payment. It is the clearest way to learn Oryn before adding Claude or OpenAI.</p>
           <div class="bullet-list">
-            <div>A Base RPC URL, usually Base Sepolia while you are testing.</div>
-            <div>A payer wallet with ETH for gas and USDC for the payment.</div>
-            <div>A second wallet for the recipient agent, with a little ETH for registration gas.</div>
-            <div>An <code>OrynPayment</code> contract address. Most developers should use the live Oryn deployment rather than deploy their own.</div>
-            <div>Two registered agent IDs if you want to send a payment immediately.</div>
+            <div>Use Base Sepolia first.</div>
+            <div>Use two wallets: one payer, one recipient.</div>
+            <div>Make sure the payer has ETH and USDC.</div>
+            <div>Use the live <code>ORYN_PAYMENT_CONTRACT_ADDRESS</code>.</div>
           </div>
-          <div class="mini-note"><strong>v1 rule:</strong> one wallet can register one permanent agent ID. If a wallet is already registered, reuse that agent ID instead of trying to register a new one.</div>
+          <div class="mini-note"><strong>v1 rule:</strong> one wallet can register one permanent agent ID.</div>
         </div>
 
         <article class="example" id="plain-node">
