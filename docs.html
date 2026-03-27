@@ -97,7 +97,7 @@ footer{border-top:1px solid var(--border);padding:26px 0;margin-top:44px}
 <body>
 <nav>
   <div class="wrap nav-inner">
-    <a href="index.html" class="brand">
+    <a href="docs.html" class="brand">
       <div class="brand-mark">
         <svg viewBox="0 0 14 14" fill="none"><path d="M7 1L13 7L7 13L1 7L7 1Z" fill="#1c0e00"/></svg>
       </div>
@@ -105,7 +105,6 @@ footer{border-top:1px solid var(--border);padding:26px 0;margin-top:44px}
     </a>
     <ul class="nav-links">
       <li><a href="docs.html" class="active">Docs</a></li>
-      <li><a href="index.html">Home</a></li>
       <li><a href="examples.html">Examples</a></li>
       <li><a href="troubleshooting.html">Troubleshooting</a></li>
       <li><a href="https://github.com/oryn-network/sdk" target="_blank" rel="noreferrer">SDK Repo</a></li>
@@ -121,7 +120,7 @@ footer{border-top:1px solid var(--border);padding:26px 0;margin-top:44px}
       <h1>Everything you need to <span>ship with Oryn</span></h1>
       <p class="hero-sub">This is the fastest path through the docs. Start with the quick start if you want your first payment. Use examples if you want Claude, OpenAI, or plain Node flows. Use troubleshooting when something breaks. Keep the live contract addresses nearby so your config stays grounded.</p>
       <div class="hero-actions">
-        <a href="index.html#quickstart" class="btn-nav">Quick start →</a>
+        <a href="#guides" class="btn-nav">Explore docs →</a>
         <a href="examples.html" class="btn-ghost">Open examples</a>
       </div>
     </div>
@@ -134,10 +133,10 @@ footer{border-top:1px solid var(--border);padding:26px 0;margin-top:44px}
         <div class="sidebar-group">
           <div class="sidebar-label">What to do</div>
           <div class="sidebar-links">
-            <a href="index.html#quickstart">1. Start with quick start</a>
+            <a href="#guides">1. Read the docs overview</a>
             <a href="examples.html">2. Copy a real example</a>
             <a href="troubleshooting.html">3. Fix setup issues</a>
-            <a href="index.html#api">4. Check the API</a>
+            <a href="https://github.com/oryn-network/sdk#api" target="_blank" rel="noreferrer">4. Check the SDK API</a>
           </div>
         </div>
         <div class="sidebar-group">
@@ -146,7 +145,6 @@ footer{border-top:1px solid var(--border);padding:26px 0;margin-top:44px}
             <a href="docs.html" class="active">Docs overview</a>
             <a href="examples.html">Examples</a>
             <a href="troubleshooting.html">Troubleshooting</a>
-            <a href="index.html">Homepage</a>
           </div>
         </div>
         <div class="sidebar-group">
@@ -160,11 +158,11 @@ footer{border-top:1px solid var(--border);padding:26px 0;margin-top:44px}
           <h2>How most developers should move through Oryn</h2>
           <p>Start on Base Sepolia. Use the live Oryn contract instead of deploying your own unless you specifically need separate owner or treasury control. Get a plain two-wallet payment working first. Once that lands, layer Oryn into your Claude or OpenAI workflow. If anything fails, check wallet state, agent state, funding, then network config in that order.</p>
         </div>
-        <div>
+        <div id="guides">
           <div class="section-kicker">Guides</div>
           <h2>Pick the page that matches what you need</h2>
           <div class="cards">
-        <a href="index.html#quickstart" class="card">
+        <a href="https://github.com/oryn-network/sdk#quick-start" target="_blank" rel="noreferrer" class="card">
           <div class="eyeline">Start here</div>
           <h3>Quick start</h3>
           <p>Install <code>@oryn/sdk</code>, connect a wallet, register an agent, and send your first payment using the live Oryn contract on Base Sepolia.</p>
@@ -222,7 +220,6 @@ footer{border-top:1px solid var(--border);padding:26px 0;margin-top:44px}
   <div class="wrap footer-inner">
     <div class="footer-brand">ORY<span>N</span></div>
     <div class="footer-links">
-      <a href="index.html">Home</a>
       <a href="examples.html">Examples</a>
       <a href="troubleshooting.html">Troubleshooting</a>
       <a href="https://www.npmjs.com/package/@oryn/sdk" target="_blank" rel="noreferrer">npm Package</a>
