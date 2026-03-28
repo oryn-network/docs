@@ -508,17 +508,17 @@ if (needsDelegation) {
 <section id="use-cases">
   <div class="wrap">
     <div class="section-kicker reveal">Use case</div>
-    <h2 class="reveal" style="margin-bottom:6px">Your planner agent hits a task it can't do alone.</h2>
-    <p class="reveal" style="color:var(--muted);font-size:.87rem;margin-bottom:32px;max-width:52ch">It needs outside compute. Without Oryn, you stop and wire up billing manually. With Oryn, the agent pays and moves on.</p>
+    <h2 class="reveal" style="margin-bottom:6px">Your agent needs outside capability to finish the job.</h2>
+    <p class="reveal" style="color:var(--muted);font-size:.87rem;margin-bottom:32px;max-width:58ch">It may need live search, web extraction, or model inference. Without Oryn, you stop and wire up billing manually. With Oryn, the agent pays a service and keeps going.</p>
 
     <div class="scenario reveal">
       <div class="scenario-col">
         <div class="scenario-label without">Without Oryn</div>
         <div class="scenario-steps">
-          <div class="scenario-step bad">Agent hits a task requiring GPU compute</div>
+          <div class="scenario-step bad">Agent needs search, extraction, or compute to continue</div>
           <div class="scenario-step bad">No payment layer — workflow stalls</div>
-          <div class="scenario-step bad">You hardwire an API key or manual billing</div>
-          <div class="scenario-step bad">Breaks for every new agent or service</div>
+          <div class="scenario-step bad">You hardwire API keys, credits, or manual billing</div>
+          <div class="scenario-step bad">Every new service needs custom payment glue</div>
         </div>
       </div>
       <div class="scenario-divider">
@@ -527,26 +527,27 @@ if (needsDelegation) {
       <div class="scenario-col">
         <div class="scenario-label with">With Oryn</div>
         <div class="scenario-steps">
-          <div class="scenario-step good">Agent hits a task requiring GPU compute</div>
-          <div class="scenario-step good">Calls <code>pay("planner", "compute", 0.50)</code></div>
-          <div class="scenario-step good">USDC settles on Base in ~1 second</div>
-          <div class="scenario-step good">Works the same for any agent or service</div>
+          <div class="scenario-step good">Agent needs outside search, extraction, or compute</div>
+          <div class="scenario-step good">Calls <code>pay("research-agent", "search-service", 0.50)</code></div>
+          <div class="scenario-step good">USDC settles on Base and the service runs</div>
+          <div class="scenario-step good">Works the same across agents, tools, and infrastructure</div>
         </div>
       </div>
     </div>
 
     <div class="also-works reveal">
-      <span class="also-label">Also works for</span>
-      <span class="also-item">GPU inference</span>
+      <span class="also-label">Examples</span>
+      <span class="also-item">search via Exa</span>
       <span class="also-dot"></span>
-      <span class="also-item">premium APIs</span>
+      <span class="also-item">extraction via Tavily</span>
       <span class="also-dot"></span>
-      <span class="also-item">internal agent budgets</span>
+      <span class="also-item">inference via Replicate</span>
       <span class="also-dot"></span>
-      <span class="also-item">cross-operator services</span>
+      <span class="also-item">specialist agents</span>
     </div>
   </div>
 </section>
+
 
 <section id="api" class="section-light">
   <div class="wrap">
